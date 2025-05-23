@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ứng dụng chuyển đổi tiền tệ</title>
+    <!-- <script src="currency.js"></script> -->
+
+</head>
+
+<body>
+    <section>
+        <h1>Chuyển đổi tiền</h1>
+        <div class="formzone">
+            <form action="" id="form" name="form" >
+                <div>
+                    <label for="amount">Số lượng :</label><br>
+                    <input type="text" name="amount" id="amount" required>
+                </div>
+                <div>
+                    <label for="from">From USD :</label><br>
+                    <select name="from" id="from">
+                        <option value="USD">USD</option>
+                     </select>
+                </div>
+                <div>
+                    <label for="to">To Tiền :</label><br>
+                    <select name="to" id="to">
+                        <option value="VND">VND</option>
+                        <option value="YEN">YEN</option>
+                        <option value="CNY">CNY</option>
+                        <option value="EUR">EUR</option>
+                        <option value="BTC">BTC</option>
+                    </select>
+                </div>
+                <button onclick="return convert()">Convert</button> 
+            </form>
+
+        </div>
+        <h2 id="result"> Kết quả: </h2>
+    </section>
+
+    <script type="module">
+        import tygia from "./currency.js"
+        localStorage.setItem("tygia",JSON.stringify(tygia));
+
+    </script>
+    <script>
+        const storedTygia = JSON.parse(localStorage.getItem("tygia"));
+        function convert() {
+            const amount = Number(document.forms["form"]["amount"].value);
+            const from = document.forms["form"]["from"].value;
+            const to = document.forms["form"]["to"].value;
+            // neu from la usd thi check to 
+            // else check to currency, 
+            const arrayTygia= Object.values(storedTygia);
+            let fromcurency=[];
+            let tocurrency=[];
+            let value=[];
+            let result=0;
+            arrayTygia.forEach(tygia => {
+                if(from == tygia.fromcurency && to==tygia.tocurrency){
+                    result = amount*tygia.value;
+                    document.getElementById("result").innerHTML = `Kết quả đổi tiền từ ${from} sang ${to}: <br> ${result}`;
+
+                }
+            });
+            
+            
+
+            return false;
+        }
+    </script>
+</body>
+
+</html>
