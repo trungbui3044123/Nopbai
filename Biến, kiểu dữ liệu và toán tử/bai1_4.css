@@ -1,0 +1,27 @@
+html,body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+h1{
+    text-align: center;
+}
+
+ul{
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
+}
+
+input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+button{
+    width: 10%;
+    height: 40px;
+    margin-left: 650px;
+}
+#resulthead{
+    text-align: center;
+}

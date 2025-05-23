@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biến, kiểu dữ liệu và toán tử</title>
+    <link rel="stylesheet" href="bai1_4.css">
+</head>
+
+<body>
+    <article class="body">
+        <section>
+            <div class="bai1">
+                <h1>nhập điểm của một sinh viên</h1>
+                <ul id="ruleinput">
+                    <li>Điểm là số thập phân tới 2 chữ số</li>
+                    <li>Must input all </li>
+                </ul>
+                <div class="form">
+                    <form action="" method="" name="form1" onsubmit="return tinhtrungbinh()">
+                        Input Ten: <input type="text" name="name_value" id="name" required><br>
+                        Input Vat ly: <input type="text" name="ly_value" id="ly"><br>
+                        Input Hoa hoc: <input type="text" name="hoa_value" id="hoa"><br>
+                        Input Sinh hoc: <input type="text" name="sinh_value" id="sinh"><br>
+                        <input type="submit" value="Submit">
+
+                    </form>
+                </div>
+                <div class="result">
+                    <h3 id="resulthead"></h3>
+                    <p>Trung bình điểm 3 môn: <span id="tb"></span></p>
+                    <p>Tổng điểm 3 môn: <span id="sum"></span></p>
+                    <p>Đánh giá: <span id="cmt"></span></p>
+
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="bai2">
+                <h1>Bài 2</h1>
+                <ul id="ruleinput">
+                    <li>Must input số</li>
+                </ul>
+                <div class="form">
+                    <form action="" method="" name="form2" onsubmit="return doif() ">
+                        Input Nhiệt độ: <input type="text" name="c_value" id="C" required><br>
+
+                        <input type="submit" value="Submit">
+                    </form>
+                </div>
+                <div class="result">
+                    <p>Nhiệt độ F là: <span id="cf"></span></p>
+
+                </div>
+            </div>
+        </section>
+        <div class="bai3">
+            <h1>Bài 3</h1>
+            <ul id="ruleinput">
+                <li>Must input số</li>
+            </ul>
+            <div class="form">
+                <form action="" method="" name="form3" onsubmit="return tron() ">
+                    Input Bánh kính: <input type="text" name="r_value" id="bankinh"><br>
+                    Input Chu vi: <input type="text" name="d_value" id="chuvi"><br>
+
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+            <div class="result">
+                <p>Chu vi hình tròn là: <span id="chuvi"></span><span id="chuvi2"></span></p>
+
+            </div>
+
+
+        </div>
+        <div class="bai4">
+            <h1>Bài 4</h1>
+        </div>
+    </article>
+    <script>
+        // bai 1
+        function tinhtrungbinh() {
+            const name = document.forms["form1"]["name_value"].value;
+            const ly = Number(document.forms["form1"]["ly_value"].value);
+            const hoa = Number(document.forms["form1"]["hoa_value"].value);
+            const sinh = Number(document.forms["form1"]["sinh_value"].value);
+
+            let trungbinh = 0;
+            let tong = 0;
+            document.getElementById("resulthead").innerHTML = `Xin chào ${name} điểm của bạn như sau:`;
+
+            if (isNaN(ly) || isNaN(hoa) || isNaN(sinh)) {
+                alert("Input number thôi cụ!!!!")
+            } else {
+                trungbinh = ((ly + hoa + sinh) / 3).toFixed(2);
+                sum = ly + hoa + sinh;
+
+                document.getElementById("tb").innerHTML = "  " + trungbinh;
+                document.getElementById("sum").innerHTML = "  " + sum;
+
+                if (sum < 5) {
+                    document.getElementById("cmt").innerHTML = " Học ngu ";
+                    document.getElementById("cmt").style.background = "red";
+                }
+                if (sum >= 5 && sum < 8) {
+                    document.getElementById("cmt").innerHTML = " Học khá ";
+                } if (sum > 8) {
+                    document.getElementById("cmt").innerHTML = " Học giỏi ";
+                    document.getElementById("cmt").style.background = "blue";
+
+                }
+            }
+            return false;
+        }
+        // bài 2
+        function doif() {
+            const c_value = Number(document.forms["form2"]["c_value"].value);
+            let f_value = 0;
+            if (isNaN(c_value)) {
+                alert("Input number thôi cụ!!!!")
+            } else {
+                f_value = ((c_value / 5) * 9 + 32).toFixed(2);
+                document.getElementById("cf").innerHTML = f_value;
+
+            }
+            console.log(f_value);
+            return false;
+        }
+        // BÀI 3
+        let r_ele = document.getElementById("bankinh");
+        let d_ele = document.getElementById("chuvi");
+
+
+        r_ele.addEventListener("input", function () {
+            if (r_ele.value == "") {
+                d_ele.disabled = false;
+            } else {
+                d_ele.disabled = true;
+            }
+        });
+
+        d_ele.addEventListener("input", function () {
+            if (d_ele.value == "") {
+                r_ele.disabled = false;
+            } else {
+                r_ele.disabled = true;
+            }
+        });
+
+        function tron() {
+            const r_value = Number(document.forms["form3"]["r_value"].value);
+            const d_value = Number(document.forms["form3"]["d_value"].value);
+            let chuvi_value = 0;
+            if (isNaN(r_value) || isNaN(d_value)) {
+                alert("Input number thôi cụ!!!!")
+            }else{
+                chuvi_value = ((r_value * r_value )* 3.14).toFixed(2);
+                document.getElementById("chuvi").innerHTML = chuvi_value;
+
+                chuvi_value = ((d_value * d_value / 4) * 3.14).toFixed(2);
+                document.getElementById("chuvi2").innerHTML = chuvi_value;
+
+            }
+            
+
+           console.log(chuvi_value)
+
+
+            return false;
+        }
+
+
+    </script>
+</body>
+
+</html>
