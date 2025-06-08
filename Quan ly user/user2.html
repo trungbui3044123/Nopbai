@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/resource/users.css">
+
+</head>
+
+<body>
+
+    <h2>Quản lý Người Dùng</h2>
+
+    <!-- Form thêm người dùng -->
+    <form id="userForm">
+        <label for="username">Tên người dùng:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="role">Role:</label>
+        <select id="role" name="role">
+            <option value="Admin">Admin</option>
+            <option value="Member">Member</option>
+        </select>
+
+        <button type="submit" id="addBtn">Thêm</button>
+    </form>
+    <div>
+        <ul>
+            <li> Lưu input vào storage</li>
+            <li> Hiển thị ở bảng bên dưới</li>
+            <li> Sửa xóa khỏi table và storage</li>
+            <li> Validate input </li>
+            <li> Search và trả lại kết quả ở table bên dưới </li>
+            <li> Làm thêm 1 trang login. Validate input, validate users với DB </li>
+        </ul>
+    </div>
+    <!-- Bảng danh sách người dùng -->
+    <table id="userTable">
+        <thead>
+            <tr>
+                <th>Tên</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th colspan="2">Action</th>
+            </tr>
+        </thead>
+        <tbody id="data">
+            <!-- Dữ liệu người dùng sẽ được thêm vào đây -->
+        </tbody>
+    </table>
+
+
+<script type="module">
+    import { addUser,edit_delete } from "users.js";
+    document.getElementById("data").addEventListener("click", edit_delete);
+    document.getElementById("userForm").addEventListener("submit", addUser);
+</script>
+</body>
+
+</html>

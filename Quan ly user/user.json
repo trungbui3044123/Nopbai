@@ -1,0 +1,34 @@
+[{
+  "id": 1,
+  "username": "zubat",
+  "email": "zubat.johnson@x.dummyjson.com",
+  "role": "member"
+
+},
+{
+  "id": 2,
+  "username": "vileplume",
+  "email": "vileplume.johnson@x.dummyjson.com",
+  "role": "member"
+},
+{
+  "id": 3,
+  "username": "venonat",
+  "email": "venonat.johnson@x.dummyjson.com",
+  "role": "member"
+},
+{
+  "id": 4,
+  "username": "venomoth",
+  "email": "venomoth.johnson@x.dummyjson.com",
+  "role": "member"
+},
+{
+  "id": 5,
+  "username": "gloom",
+  "email": "gloom.johnson@x.dummyjson.com",
+  "role": "admin"
+}
+
+
+]
