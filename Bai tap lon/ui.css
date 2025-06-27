@@ -1,12 +1,33 @@
 /* styles.css */
+html {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#addFormContainer {
+  margin-bottom: 20px;
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+#addFormContainer input {
+  width: 70%;
+  padding: 8px;
+}
+#addFormContainer button {
+  padding: 10px 16px;
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
 
 table {
   width: 100%;
   border-collapse: collapse;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
   margin-top: 20px;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 thead {
@@ -14,10 +35,13 @@ thead {
   color: white;
 }
 
-th, td {
+th,
+td {
   border: 1px solid #ddd;
-  padding: 10px 12px;
-  text-align: center;
+  padding: 12px 16px;
+  text-align: left;
+  min-width: auto;
+  word-wrap: break-word;
 }
 
 tbody tr:nth-child(even) {
@@ -28,7 +52,10 @@ tbody tr:hover {
   background-color: #f1f1f1;
   cursor: pointer;
 }
-
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
 button.EditBtn {
   background-color: #3498db;
   color: white;
@@ -49,4 +76,38 @@ button.DeleteBtn {
 
 button:hover {
   opacity: 0.85;
+}
+.results-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  margin: 20px 0;
+  background-color: #f4f6f8;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: "Segoe UI", sans-serif;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+#resultsCount {
+  font-size: 16px;
+  color: #333;
+  font-weight: 500;
+}
+
+.results-info input[type="search"] {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  min-width: 200px;
+  transition: border-color 0.2s ease;
+}
+
+.results-info input[type="search"]:focus {
+  border-color: #0078d4;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 120, 212, 0.2);
 }

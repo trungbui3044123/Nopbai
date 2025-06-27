@@ -102,16 +102,16 @@ class ThreadChanel {
 
  }
  ///
- searchData(keyText,keyOptions){
+ searchData(keyText){
   const renderData = [...this.getDataLocal()]||[];
   const keyTextValue = keyText.toLowerCase().trim()||"";
-  const keyOptionsValue = keyOptions.toLowerCase().trim()||"";
+  // const keyOptionsValue = keyOptions.toLowerCase().trim()||"";
   try{
-    if(!keyTextValue.length && !keyOptionsValue.length){ return this.renderTable(renderData); };
+    if(!keyTextValue.length ){ return this.renderTable(renderData); };
     const searchData = renderData.filter(record=>{
       const searchtitle= record.title.toLowerCase().includes(keyTextValue);
-      const searchTags= record.tags.includes(keyOptions);
-      return (searchtitle||searchTags);
+      // const searchTags= record.tags.includes(keyOptions);
+      return (searchtitle);
     })
      return this.renderTable(searchData); 
 

@@ -4,26 +4,72 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-   <link rel="stylesheet" href="/ui.css">
+    <link rel="stylesheet" href="/ui.css" />
   </head>
   <body>
     <div class="container">
+      <div id="addFormContainer"  >
+        <h3>Add New Post</h3>
+        <button id="toAddForm">Add new Post</button>
+        <div class="sss" id="addForm" style="display: none;"><form id="addPostForm">
+          <div style="margin-bottom: 10px">
+            <label for="title">Title:</label><br />
+            <input
+              type="text"
+              id="title"
+              name="title"
+              required
+              
+            />
+          </div>
+          <div style="margin-bottom: 10px">
+            <label for="tags">Tags (comma-separated):</label><br />
+            <input
+              type="text"
+              id="tags"
+              name="tags"
+              placeholder="e.g. history, fiction, love"
+             
+            />
+          </div>
+          <div style="margin-bottom: 10px">
+            <label for="views">Views:</label><br />
+            <input
+              type="number"
+              id="views"
+              name="views"
+              min="0"
+              value="0"
+        
+            />
+          </div>
+          <button type="submit" >
+            Add Post
+          </button>
+        </form></div>
+      </div>
+
       <div class="results-info">
+        <div class="">
+          <p>Search posts</p>
+          <input type="search" id="searchKey" />
+        </div>
         <span id="resultsCount">Showing 0 of 0 posts</span>
       </div>
-      <table id="table" style="display: none">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th colspan="3">Tag</th>
-            <th>Views</th>
-            <th colspan="2">Action</th>
-          </tr>
-        </thead>
-        <tbody id="tbody"></tbody>
-      </table>
-      <p id="paginate"></p>
-
+      <div class="table-container">
+        <table id="table" style="display: none">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Tag</th>
+              <th>Views</th>
+              <th colspan="2">Action</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+        <p id="paginate"></p>
+      </div>
       <!-- No Results -->
       <div class="no-results" id="noResults" style="display: block">
         <h3>No posts found</h3>
@@ -32,15 +78,12 @@
     </div>
     <script src="modal.js"></script>
     <script src="logic.js" defer></script>
-     <script>
-      const testOBject= new PostsObject(0,"ssss","vvvv")
+    <script>
+
       // const data=thread.deleteData(3)
-      //    console.log(data)  
-      setTimeout(()=>{
- 
-      },1000)
+      //    console.log(data)
 
-
-     </script>
+      setTimeout(() => {}, 1000);
+    </script>
   </body>
 </html>
