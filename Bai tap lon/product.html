@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/project23/ui.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <div>
+          <h1>Post Management</h1>
+          <p>Manage and monitor your blog posts</p>
+        </div>
+        <button class="btn">+ New Post</button>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-grid" id="stats">
+        <!-- Stats will be populated by JavaScript -->
+      </div>
+
+      <!-- Filters -->
+      <div class="filters">
+        <div class="filter-row">
+          <div class="search-box">
+            <svg
+              class="search-icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              ></path>
+            </svg>
+            <input
+              type="text"
+              class="search-input"
+              id="searchInput"
+              placeholder="Search posts by title or content..."
+            />
+          </div>
+          <select class="select" id="tagFilter">
+            <option value="all">All Tags</option>
+          </select>
+          <select class="select" id="sortBy">
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+            <option value="most-liked">Most Liked</option>
+            <option value="most-viewed">Most Viewed</option>
+          </select>
+          <button class="btn btn-outline"  id="searchBTN">
+            Search
+          </button>
+        </div>
+      </div>
+
+      <!-- Results Info -->
+      <div class="results-info">
+        <span id="resultsCount">Showing 0 of 0 posts</span>
+      </div>
+      <table id="table"  style="display: none">
+        <thead>
+          <tr>
+
+            <th>title</th>
+            <th>body</th>
+            <th>tags</th>
+
+            <th colspan="2">Action</th>
+
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+      <p id="paginate"></p>
+
+      <!-- No Results -->
+      <div class="no-results" id="noResults" style="display: block">
+        <h3>No posts found</h3>
+        <p>Try adjusting your search or filter criteria</p>
+      </div>
+    </div>
+    <script src="modal.js"></script>
+    <script src="logic.js" defer ></script>
+    <script>
+  setTimeout(() => {
+
+         const   ui = new UI(thread.renderData(pages));
+   
+  }, 1000); 
+      
+
+
+
+      const postadd = new PostsObject(
+          1,
+          "No posts found",
+          "Try adjusting your search or filter criteria",
+      )
+const addobject= new PostsObject(
+  31,
+  "Trungbui iles from her house.",
+  "Trungbui burned up on the hill.",
+  ['magical', 'history', 'french'],
+  {dislikes: 39,likes: 1448},
+  4152,
+  16
+
+)
+const editObject= new PostsObject(
+  13,
+  "CAMBUI iles from her house.",
+  "CAMBUI burned up on the hill.",
+  ['', 'CAMBUI', 'CAMBUI'],
+  {dislikes: 39,likes: 1448},
+  4152,
+  16
+)
+    </script>
+  </body>
+</html>
