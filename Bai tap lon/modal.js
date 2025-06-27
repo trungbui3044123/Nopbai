@@ -15,17 +15,18 @@ class PostsObject {
 
 class ThreadChanel {
   constructor(url, localKey, rowPerPageNumber) {
-    (this.url = url),
+   try{ (this.url = url),
       (this.localKey = localKey),
       (this.rowPerPageNumber =
         Number(rowPerPageNumber) > 0 ? Number(rowPerPageNumber) : 1);
     this.init();
+  }catch(e){console.log(`You are in constructor trouble: ${e.message}`)}
   }
- async  init() {
-    this.fetchData();
-    await  this.getDataLocal();
-    await  this.renderData(this.filterData);
-    
+  init() {
+    this.fetchData().then(()=>{
+      
+      this.renderTable();
+    });
   }
   fetchData() {
     return fetch(this.url)
@@ -63,21 +64,6 @@ class ThreadChanel {
   removeLocal() {
     localStorage.removeItem(this.localKey);
   }
-
-  //
-  setfilterData(cloneArray) {
-    try {
-      if (!Array.isArray(cloneArray) && cloneArray.length == 0) {
-        throw new Error("cloneArray is null, can not create filterData");
-      }
-      return (this.filterData = [...cloneArray]);
-    } catch (e) {
-      console.log(`${e.name}: ${e.message}`);
-    }
-  }
-  clearFilterData() {
-    return (this.filterData = []);
-  }
   /**
    *
    * @returns filterData array data để sử dụng khi render html. không trực tiếp return và sử dụng localdata
@@ -88,145 +74,105 @@ class ThreadChanel {
       if (!dataLocal.length|| Array.isArray(dataLocal) === false) {
         throw new Error("Data local is null");
       }
-      return this.setfilterData(dataLocal);
+      return dataLocal;
     } catch (e) {
       console.log(`${e.name}: ${e.message}`);
     }
   }
-  //
   /**
-   *
-   * @param {*} targetRenderArray default la filterData, con khong thi la cac data tu search,add,edit,delete tryen vao
-   * @returns 1 mang tap hop cac page da pagination, this.renderData(targetRenderArray) => this.pages[]
-   *Hoac tra ve mang rong de show nodata
+   * Truyền vào data from local. 
+   * @returns pages=[] đã được phân trang
    */
-  renderData(targetRenderArray = this.filterData) {
-    this.getDataLocal();
-
-    this.pages = [];
-    try {
-      if (!Array.isArray(targetRenderArray) ) {
-        throw new Error("inputData targetRenderArray is null");
-      }
-      if (!targetRenderArray.length) {
-        return (this.pages = []);
-      }
-      const totalPages = Math.ceil(
-        targetRenderArray.length / this.rowPerPageNumber
-      );
-      for (let i = 0; i < totalPages; i++) {
-        const startIndex = i * this.rowPerPageNumber;
-        const endIndex = startIndex + this.rowPerPageNumber;
-        const page = targetRenderArray.slice(startIndex, endIndex);
-        this.pages.push(page);
-      }
-      return this.pages;
-    } catch (e) {
-      console.log(`${e.name}:${e.message}`);
+ renderTable(renderData = [...this.getDataLocal()]||[]){
+  const pages=[];
+  try{
+    if(!renderData.length){return renderData}
+    const totalPagesNumbers = Math.ceil(renderData.length/this.rowPerPageNumber)
+    for(let i=0;i<totalPagesNumbers;i++){
+      const startPoint= i*this.rowPerPageNumber;
+      const endPoint= startPoint + this.rowPerPageNumber;
+      const currentPage= renderData.slice(startPoint,endPoint);
+      pages.push(currentPage);
     }
-  }
-  //
-  /**
-   *
-   * @param {String} searchKey String truyen truc tiep vao tu html, goi this.searchData(searchKey) o class UI
-   * @returns this.pages[] chua cac value search va da duoc pagination
-   */
-  searchData(searchKey) {
-    let data = this.getDataLocal();
-    const value = searchKey.toLowerCase().trim();
-    if (searchKey.length === 0) {
-      return data=[];
-    }
-    const searchValue = data.filter((row) => {
-      if (!row.title || !row.body || !Array.isArray(row.tags)) {
-        return false;
-      }
-      const titleSearch = row.title.toLowerCase().includes(value); // true/false
-      const bodySearch = row.body.toLowerCase().includes(value); // true/false
-      const tagSearch = row.tags.some((record) => {
-        record.toLowerCase().includes(value);
-      }); // true/false\
-      return titleSearch || bodySearch || tagSearch;
-    });
-    return this.renderData(searchValue);
-  }
-  //
-  validateData() {}
-  /**
-   *
-   * @param {NewObject} newPostsObject
-   * khi su dung thi lay ra this.pages[] chua cac value search va da duoc pagination
-   */
-  addData(newPostsObject) {
-    const data = this.getDataLocal();
+    return pages;
 
-    try {
-      if (
-        Object.values(newPostsObject).some((val) => val === "" || val === null)
-      ) {
-        throw new Error("Can not leave whole informations in blank");
-      }
-      newPostsObject.id = data.length + 1;
-      const newdataList = [...data, newPostsObject];
-      this.removeLocal();
-      this.setToLocal(newdataList);
+  }catch(e){ console.log(`You are in renderTable trouble: ${e.message}`)
 
-      return this.renderData();
-    } catch (e) {
-      console.log(`${e.message}`);
-    }
   }
-  editData(editObject) {
-    const data = this.getDataLocal();
-    const ifeditObjectYesNo = data.some((row) => {
-      return row.id == editObject.id;
-    });
 
-    try {
-      if ((editObject.id == -1, !ifeditObjectYesNo)) {
-        throw new Error("No such data to edit");
-      }
-      const targeteditObject = data.filter((row) => {
-        return row.id == editObject.id;
-      });
-      const targeteditIndex = data.findIndex((row) => {
-        return row.id == editObject.id;
-      });
-      data[targeteditIndex] = targeteditObject;
-      const editLists = [...data];
-      this.removeLocal();
-      this.setfilterData(editLists);
-      return this.renderData();
-    } catch (e) {
-      console.log(`${e.message}`);
-    }
-  }
-  deleteData(objectID) {
-    this.getDataLocal();
-    const data = this.filterData;
-    const confirmdelte=confirm("Wanna delete this for real Nigga");
-    try {
-      if ((editObject.id === -1)) {
-        throw new Error("No such data to delete");
-      }
-      if (!confirmdelte) {return}
-      
-      const deletedData = data.filter((row) => {
-        return row.id != objectID;
-      });
+ }
+ ///
+ searchData(keyText,keyOptions){
+  const renderData = [...this.getDataLocal()]||[];
+  const keyTextValue = keyText.toLowerCase().trim()||"";
+  const keyOptionsValue = keyOptions.toLowerCase().trim()||"";
+  try{
+    if(!keyTextValue.length && !keyOptionsValue.length){ return this.renderTable(renderData); };
+    const searchData = renderData.filter(record=>{
+      const searchtitle= record.title.toLowerCase().includes(keyTextValue);
+      const searchTags= record.tags.includes(keyOptions);
+      return (searchtitle||searchTags);
+    })
+     return this.renderTable(searchData); 
 
-      this.removeLocal();
-      console.log(deletedData);
-      this.setToLocal(deletedData);
-      return deletedData;
-    } catch (e) {
-      console.log(`${e.message}`);
-    }
-  }
+  }catch(e){ console.log(`You are in searchData trouble: ${e.message}`)
+ }
 }
-//
-url = "https://dummyjson.com/posts";
-localKey = "TrungbuiThread";
-rowPerPageNumber = 3;
+///
+ createData(NewObject){
+    const renderData = [...this.getDataLocal()]||[];
+    const NewObjectArray = Array(NewObject)||[];
 
-window.thread = new ThreadChanel(url, localKey, rowPerPageNumber);
+    try{  
+      if(!NewObjectArray.length){return }
+      NewObject.id=renderData.length+1;
+      const  addArray =[...renderData,...NewObjectArray];
+      this.setToLocal(addArray) 
+      return this.renderTable(addArray); 
+    }catch(e){ console.log(`You are in createData trouble: ${e.message}`)
+ }}
+ ////
+ editData(id,editObject){
+    const renderData = [...this.getDataLocal()]||[];
+    const editObjectArray = Array(editObject)||[];
+
+    try{  
+      if(!editObjectArray.length || id<0){return }
+      
+      const  editIndex = renderData.findIndex(record=>{
+        return record.id == id;
+      })
+     renderData[editIndex]=editObject;
+      this.setToLocal(renderData) 
+      return this.renderTable(renderData); 
+    }catch(e){ console.log(`You are in createData trouble: ${e.message}`)}
+  
+ }
+  deleteData(id){
+      const renderData = [...this.getDataLocal()]||[];
+       try{  
+      if(id<0){return }
+      
+      const  deleteIndex = renderData.findIndex(record=>{
+        return record.id == id;
+      })
+     renderData.splice(deleteIndex,1)
+      this.setToLocal(renderData) 
+      return this.renderTable(renderData); 
+    }catch(e){ console.log(`You are in createData trouble: ${e.message}`)} 
+  }
+
+
+
+
+}
+
+//
+
+
+url="https://dummyjson.com/posts";
+localKey="TrungbuiThread";
+rowPerPageNumber= 3;
+
+const thread = new ThreadChanel(url, localKey, rowPerPageNumber);
+
