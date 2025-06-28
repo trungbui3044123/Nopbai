@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Quản lý Sổ Tiết Kiệm</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    input { margin-bottom: 5px; display: block; }
+    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+    th, td { border: 1px solid #999; padding: 8px; text-align: left; }
+    th { background-color: #f2f2f2; }
+    .success { color: green; }
+    .error { color: red; }
+  </style>
+</head>
+<body>
+
+  <h2>Quản lý Sổ Tiết Kiệm</h2>
+
+  <div id="form">
+    <input type="text" id="maSo" placeholder="Mã sổ (tối đa 5 ký tự)">
+    <input type="text" id="loaiTietKiem" placeholder="Loại tiết kiệm (tối đa 10 ký tự)">
+    <input type="text" id="hoTen" placeholder="Họ tên khách hàng (tối đa 30 ký tự)">
+    <input type="number" id="cmnd" placeholder="CMND">
+    <input type="date" id="ngayMoSo">
+    <input type="number" id="soTien" placeholder="Số tiền gửi">
+    <button onclick="themSoTietKiem()">Thêm Sổ</button>
+    <p id="message"></p>
+  </div>
+
+  <div>
+    <input type="text" id="xoaMaSo" placeholder="Nhập mã sổ cần xoá">
+    <button onclick="xoaSoTietKiem()">Xoá Sổ</button>
+  </div>
+
+  <table id="bang">
+    <thead>
+      <tr>
+        <th>Mã sổ</th><th>Loại</th><th>Họ tên</th><th>CMND</th><th>Ngày mở</th><th>Số tiền</th>
+      </tr>
+    </thead>
+    <tbody id="danhSach"></tbody>
+  </table>
+
+  <script src="Bai3.js"></script>
+</body>
+</html>

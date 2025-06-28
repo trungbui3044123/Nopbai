@@ -24,7 +24,7 @@ class LogicUI {
             <td>${tagCells}</td>
             <td>${record.views}</td>
             <td><button class="EditBtn" onclick="ui.test()">Edit</button></td>
-            <td><button class="DeleteBtn" onclick="ui.deleteData(event)">Delete</button></td>    
+            <td><button class="DeleteBtn" onclick="ui.deleteData('event')">Delete</button></td>    
         `;
     this.Tbody.appendChild(tr);
   }
